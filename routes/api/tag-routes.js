@@ -9,8 +9,7 @@ router.get("/", async (req, res) => {
   // be sure to include its associated Product data
   try {
     const getTags = await Tag.findAll({
-      attributes: ["id"],
-      include: [{ model: Tag, through: ProductTag }],
+      include: [{ model: Product, through: ProductTag }],
     });
     return res.json(getTags);
   } catch (err) {
@@ -57,7 +56,7 @@ router.put("/:id", async (req, res) => {
     if (!updateTag[0]) {
       res.status(404).json({ message: "No matches found" });
     }
-    res.status(200).json(updataTag);
+    res.status(200).json(updateTag);
   } catch (err) {
     res.status(400).json(err);
   }
